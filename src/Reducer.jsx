@@ -29,15 +29,14 @@ const Reducer = (state, action) => {
     }).filter((cartItems) => cartItems.qty !== 0)
     return ({ ...state, cart: tempCart })
   }
-  //get total; here, kewal = returing || kewal2 = representing elm, we're iterating 
+  //get total; here, cartItem = returing && cartItems = representing elm, we're iterating 
   if (action.type === 'GET_TOTALS') {
-    const { total, qty } = state.cart.reduce((kewal, kewal2) => {
-      const { price, qty } = kewal2
+    const { total, qty } = state.cart.reduce((cartItem, cartItems) => {
+      const { price, qty } = cartItems
       const itemTotal = price * qty
-
-      kewal.qty += qty
-      kewal.total += itemTotal
-      return kewal
+      cartItem.qty += qty
+      cartItem.total += itemTotal
+      return cartItem
     },
       { total: 0, qty: 0 })
     return ({ ...state, total, qty })
